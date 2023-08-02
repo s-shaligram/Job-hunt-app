@@ -1,12 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import LoginScreen from "./Components/Screens/loginScreen";
+import LoginScreen from "./src/Components/Screens/loginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { auth } from "./Components/Database/dbConfig";
-import HomeScreen from "./Components/Screens/HomeScreen";
-import TabBarDemo1 from "./Components/Navigation/tab";
-import ReactNavigationBottomTabs from "./Components/Navigation/tab";
+import { auth } from "./src/Components/Database/dbConfig";
+import HomeScreen from "./src/Components/Screens/HomeScreen";
+import TabBarDemo1 from "./src/Components/Navigation/tab";
+import ReactNavigationBottomTabs from "./src/Components/Navigation/tab";
 export default function App() {
   const [user, setUser] = useState(null);
 

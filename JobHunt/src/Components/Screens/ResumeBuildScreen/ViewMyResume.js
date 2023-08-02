@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text } from "react-native";
 import styles from "./styles";
 
-const ResumeBuildScreen = () => {
+const ViewMyResume = () => {
   return (
     <View style={styles.container}>
-      <Text>Resume Build</Text>
+      <Text>Add or build Resume to see here.</Text>
     </View>
   );
 };
 
-export default ResumeBuildScreen;
+export default ViewMyResume;
