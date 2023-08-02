@@ -14,6 +14,7 @@ const Tab = createBottomTabNavigator();
 const ReactNavigationBottomTabs = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       tabBarOptions={{
         // Default Color is blue you can change it by following props
         activeTintColor: "white",
