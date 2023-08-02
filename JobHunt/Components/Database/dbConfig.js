@@ -1,4 +1,5 @@
-import firebase from "react-native-firebase";
+import {initializeApp} from "firebase/app";
+import {getAuth} from "firebase/auth";
 
 const firebaseConfig = {
     // Initialize Firebase
@@ -11,6 +12,8 @@ const firebaseConfig = {
         measurementId: "G-L1XY2ZJ0KM"
 }
 
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const firebase = initializeApp(firebaseConfig);
+const auth = getAuth(firebase);
 
-export default firebase;
+export {auth}

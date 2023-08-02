@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 import styles from './styles';
-import auth from '@react-native-firebase/auth';
-import appConfig from '../../Database/dbConfig';
+import { auth } from '../../Database/dbConfig';
+import {signInWithEmailAndPassword} from "firebase/auth";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth,email, password)
       .then((userCredential) => {
         // User successfully logged in
         const { user } = userCredential;
