@@ -27,7 +27,7 @@ const ReactNavigationBottomTabs = () => {
         component={ResumeBuildScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="message" color={color} size={40} />
+            <Icon name="message" color={color} size={35} />
           ),
         }}
       />
@@ -36,7 +36,7 @@ const ReactNavigationBottomTabs = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={40} />
+            <Icon name="home" color={color} size={35} />
           ),
         }}
       />
@@ -46,7 +46,7 @@ const ReactNavigationBottomTabs = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="person" color={color} size={40} />
+            <Icon name="person" color={color} size={35} />
           ),
         }}
       />

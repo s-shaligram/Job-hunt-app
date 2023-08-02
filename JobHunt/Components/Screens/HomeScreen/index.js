@@ -1,9 +1,12 @@
 import React from "react";
 import { View, Text, Button, ScrollView } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Card, Icon } from "react-native-elements";
 import styles from "./styles";
 
-const HomeScreen = () => {
+const Tab = createBottomTabNavigator();
+
+const Screen1 = () => {
   const arr = [
     {
       jobTitle: "Software Engineer",
