@@ -1,16 +1,14 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Icon } from "react-native-elements";
 import styles from "./styles";
 
-const HomeScreen = () => {
+const ProfileScreen = () => {
   console.log("Home Screen..");
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <Text>Profile</Text>
     </View>
   );
 };
 
-export default HomeScreen;
+export default ProfileScreen;
