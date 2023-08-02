@@ -7,7 +7,8 @@ import HomeScreen from "../Screens/HomeScreen";
 import ResumeBuildScreen from "../Screens/ResumeBuildScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import TabBar, { EventRegister } from "react-native-bottom-tab";
-
+import Logo from "../Logo/header";
+import { color } from "react-native-elements/dist/helpers";
 const Tab = createBottomTabNavigator();
 
 const ReactNavigationBottomTabs = () => {
@@ -23,7 +24,7 @@ const ReactNavigationBottomTabs = () => {
       }}
     >
       <Tab.Screen
-        name="Build Resume"
+        name="Resume"
         component={ResumeBuildScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -35,6 +36,7 @@ const ReactNavigationBottomTabs = () => {
         name="Home"
         component={HomeScreen}
         options={{
+          headerTitle: () => <Logo screenName={"JobHunt"} />,
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={35} />
           ),
