@@ -27,7 +27,7 @@ git clone https://github.com/s-shaligram/Job-hunt-app
 
 2. Navigate to the project directory:
 
-cd job-hunt-app
+cd JobHunt
 
 3. Install dependencies:
 
