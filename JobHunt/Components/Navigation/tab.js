@@ -15,11 +15,11 @@ const ReactNavigationBottomTabs = () => {
     <Tab.Navigator
       tabBarOptions={{
         // Default Color is blue you can change it by following props
-        activeTintColor: "#ff4757",
-        inactiveTintColor: "#ff6b81",
+        activeTintColor: "white",
+        inactiveTintColor: "black",
         // Default Background Color is white you can change it by following props
-        activeBackgroundColor: "#ced6e0",
-        inactiveBackgroundColor: "#ced6e0",
+        activeBackgroundColor: "#0B92BA",
+        inactiveBackgroundColor: "#0B92BA",
       }}
     >
       <Tab.Screen
@@ -27,7 +27,7 @@ const ReactNavigationBottomTabs = () => {
         component={ResumeBuildScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="message" color={color} size={size} />
+            <Icon name="message" color={color} size={40} />
           ),
         }}
       />
@@ -36,7 +36,7 @@ const ReactNavigationBottomTabs = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={size} />
+            <Icon name="home" color={color} size={40} />
           ),
         }}
       />
@@ -46,7 +46,7 @@ const ReactNavigationBottomTabs = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="person" color={color} size={size} />
+            <Icon name="person" color={color} size={40} />
           ),
         }}
       />
