@@ -4,7 +4,7 @@ import { Picker } from "@react-native-picker/picker";
 import styles from "./styles";
 import {auth,db,} from "../../Database/dbConfig"
 import { collection, addDoc ,Timestamp} from "firebase/firestore"; 
-
+// const
 
 
 const PostJobsScreen = () => {
