@@ -8,7 +8,7 @@ import HomeScreen from './Components/Screens/HomeScreen';
 
 export default function App() {
 const [user, setUser] = useState(null)
-
+//
 useEffect(() => {
   const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser !== null) {
