@@ -7,11 +7,11 @@ const Logo = () => {
   return (
     //Add your logo in the image tag
     <View style={{ flex: 0 }}>
-      <Image
+      {/* <Image
         source={require("/Users/ghanashyamshingate/Desktop/JobHunt/Job-hunt-app/JobHunt/assets/logos/job-hunt-logo-zip-file/png/output-onlinepngtools.png")}
         resizeMode="contain"
         style={{ height: 90, width: 90, marginLeft: 140 }}
-      />
+      /> */}
     </View>
   );
 };

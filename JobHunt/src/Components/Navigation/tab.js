@@ -9,8 +9,9 @@ import ProfileScreen from "../Screens/ProfileScreen";
 import TabBar, { EventRegister } from "react-native-bottom-tab";
 import Logo from "../Logo/header";
 import { color } from "react-native-elements/dist/helpers";
+import PostJobsScreen from "../Screens/PostJobsScreen";
 const Tab = createBottomTabNavigator();
-
+const loginType = "recruiter"
 const ReactNavigationBottomTabs = () => {
   return (
     <Tab.Navigator
@@ -44,6 +45,15 @@ const ReactNavigationBottomTabs = () => {
         }}
       />
 
+     {loginType=='recruiter' ?  <Tab.Screen
+        name="PostJobsScreen"
+        component={PostJobsScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="person" color={color} size={35} />
+          ),
+        }}
+      /> :
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
@@ -53,6 +63,7 @@ const ReactNavigationBottomTabs = () => {
           ),
         }}
       />
+      }
     </Tab.Navigator>
   );
 };

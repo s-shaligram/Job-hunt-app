@@ -54,6 +54,19 @@ const styles = StyleSheet.create({
         color: 'white',
 
       },
+      errorText:{
+        color: '#FF0000'
+      },
+      disabledButton: {
+        flex:1,
+        backgroundColor: '#ccc',
+        padding: 12,
+        borderRadius: 5,
+        marginTop: 20,
+        marginLeft:10,
+        marginRight:10,
+        alignItems: 'center',
+    }
 
 
 })
