@@ -91,7 +91,7 @@ validatePassword()
       />
       {passwordError&&<Text style={styles.errorText}>{passwordError}</Text>}
       {isLoading&&<ActivityIndicator size="large" color="#FF0000"/>}
-      <TouchableOpacity style={styles.login_button} onPress={handleLogin}><Text>Login</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.login_button} onPress={handleLogin}><Text>Sign Up</Text></TouchableOpacity>
       <Text style={styles.sign_up_url} onPress={
         ()=>{
           navigation.navigate('SignIn')}
