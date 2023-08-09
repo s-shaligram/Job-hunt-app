@@ -1,8 +1,9 @@
 import {initializeApp} from "firebase/app";
 import {getAuth} from "firebase/auth";
+import { getFirestore } from "firebase/firestore"; 
 
 const firebaseConfig = {
-    // Initialize Firebase
+    /// Initialize Firebase
         apiKey: "AIzaSyD0_pusdiUH6vUMV2cicyVJdWZQQKzbgm4",
         authDomain: "job-hunt-project-6f317.firebaseapp.com",
         projectId: "job-hunt-project-6f317",
@@ -13,7 +14,8 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-const firebase = initializeApp(firebaseConfig);
-const auth = getAuth(firebase);
-
-export {auth}
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp); // Initialize Firestore
+console.log("my db:",db)
+export { auth, db }; // Export the Firestore instance as well 
