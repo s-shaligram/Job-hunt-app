@@ -32,9 +32,9 @@ export default function App() {
     );
   } else {
     return (
-      <View style={styles.container}>
-        <LoginScreen />
-      </View>
+        <NavigationContainer>
+        <LoginScreen/>
+        </NavigationContainer>
     );
   }
 }
