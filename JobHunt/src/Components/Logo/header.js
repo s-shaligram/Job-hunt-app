@@ -8,7 +8,7 @@ const Logo = () => {
     //Add your logo in the image tag
     <View style={{ flex: 0 }}>
       <Image
-        source={require("/Users/ghanashyamshingate/Desktop/JobHunt/Job-hunt-app/JobHunt/assets/logos/job-hunt-logo-zip-file/png/output-onlinepngtools.png")}
+        source={require("../../../assets/logos/job-hunt-logo-zip-file/png/output-onlinepngtools.png")}
         resizeMode="contain"
         style={{ height: 90, width: 90, marginLeft: 140 }}
       />
