@@ -4,7 +4,6 @@ import {PostingList} from "./PostingList";
 import {PostingDetails} from "./PostingDetails";
 
 const Stack = createStackNavigator();
-
 const HomeScreen = () => {
     return (
         <Stack.Navigator initialRoutName="PostingList">

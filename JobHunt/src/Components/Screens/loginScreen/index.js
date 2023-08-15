@@ -1,44 +1,26 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
-import styles from './styles';
-import { auth } from '../../Database/dbConfig';
-import {signInWithEmailAndPassword} from "firebase/auth";
+import React from "react";
+import {createStackNavigator} from "@react-navigation/stack";
+import SignIn from './SignIn';
+import SignUp from'./SignUp';
 
-const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Stack = createStackNavigator();
+const LoginScreen= () => {
+    return (
+        <Stack.Navigator initialRoutName="SignIn">
+            <Stack.Screen
+                name="SignIn"
+                component={SignIn}
+                options={{headerShown: false}}
+            />
 
-  const handleLogin = async () => {
-    signInWithEmailAndPassword(auth,email, password)
-      .then((userCredential) => {
-        // User successfully logged in
-        const { user } = userCredential;
-        console.log(`Logged in as ${user.email}`);
-      })
-      .catch((error) => {
-        // Handle login errors
-        console.log(`Login failed: ${error.message}`);
-      });
-  };
+            <Stack.Screen
+                name="SignUp"
+                component={SignUp}
+                options={{headerShown: false}}
+            />
+        </Stack.Navigator>
 
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={setEmail}
-        value={email}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry
-        onChangeText={setPassword}
-        value={password}
-      />
-      <Button title="Login" onPress={handleLogin} />
-    </View>
-  );
+    );
 };
 
 export default LoginScreen;
