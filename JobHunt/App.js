@@ -7,8 +7,12 @@ import { auth } from "./src/Components/Database/dbConfig";
 import HomeScreen from "./src/Components/Screens/HomeScreen";
 import TabBarDemo1 from "./src/Components/Navigation/tab";
 import ReactNavigationBottomTabs from "./src/Components/Navigation/tab";
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import CustomDrawer from "./src/Components/Navigation/CustomDrawer";
+
+const Drawer = createDrawerNavigator();
 export default function App() {
-  const [user, setUser] = useState(null);
+const [user, setUser] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
@@ -27,6 +31,13 @@ export default function App() {
   if (user) {
     return (
       <NavigationContainer>
+         {/* <Drawer.Navigator
+        initialRouteName="Home"
+        drawerContent={props => <CustomDrawer {...props} />}
+      >
+        <Drawer.Screen name="Home" component={HomeScreen} />
+       
+      </Drawer.Navigator> */}
         <ReactNavigationBottomTabs />
       </NavigationContainer>
     );
