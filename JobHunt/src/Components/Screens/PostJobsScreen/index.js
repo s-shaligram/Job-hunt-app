@@ -286,7 +286,7 @@ const PostJobsScreen = () => {
         <Picker.Item label="Full-time" value="Full-time" />
         <Picker.Item label="Seasonal" value="Seasonal" />
       </Picker>
-      <Text style={styles.errorText}>{jobTypeError}</Text>
+      {jobTypeError&&<Text style={styles.errorText}>{jobTypeError}</Text>}
       <Text style={styles.label}>Location</Text>
       <TextInput
         style={styles.input}
