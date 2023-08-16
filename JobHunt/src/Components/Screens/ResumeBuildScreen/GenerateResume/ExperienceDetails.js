@@ -9,6 +9,7 @@ const ExperienceDetails = ({ onNext, onBack, updateExperienceDetails }) => {
 
   const handleAddExperience = () => {
     const newExperience = { company, position };
+    console.log("New Exp:", newExperience);
     setExperiences([...experiences, newExperience]);
     setCompany("");
     setPosition("");
