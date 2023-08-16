@@ -18,7 +18,7 @@ const ResumeBuildScreen = () => {
       <Stack.Screen
         name="ViewMyResume"
         component={ViewMyResume}
-        options={{ headerShown: true, headerTitle: "Resume" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen name="AddMyResume" component={AddMyResume} />
       <Stack.Screen name="GenerateScreen" component={GenerateScreen} />

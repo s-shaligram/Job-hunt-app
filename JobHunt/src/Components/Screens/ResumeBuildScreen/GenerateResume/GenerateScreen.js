@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
-
+import HomeScreen from "./HomeScreen.js";
 const GenerateScreen = () => {
   return (
-    <View>
-      <Text>Generate.js Component Screen</Text>
+    <View style={{ backgroundColor: "white", height: 600 }}>
+      <HomeScreen />
     </View>
   );
 };
