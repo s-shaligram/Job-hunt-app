@@ -7,7 +7,6 @@ const PersonalDetails = ({ onNext, onBack, updatePersonalDetails }) => {
   // Add more state variables for other personal details
   const handleNext = () => {
     const newPersonalData = { name, email }; // Create an object with collected data
-    console.log("new Pd:", newPersonalData);
     updatePersonalDetails(newPersonalData); // Update parent component's state
     onNext(); // Move to the next step
   };

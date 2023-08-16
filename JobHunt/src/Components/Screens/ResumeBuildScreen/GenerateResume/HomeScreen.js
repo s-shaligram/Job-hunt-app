@@ -38,10 +38,8 @@ const HomeScreen = () => {
   };
 
   const renderStep = () => {
-    console.log("Inside rederstep");
     switch (step) {
       case 0:
-        console.log("inside case 0");
         return (
           <PersonalDetails
             onNext={handleNext}

@@ -104,7 +104,6 @@ const SignUp = ({ navigation }) => {
       .then((userCredential) => {
         // Signed in 
         var user = userCredential.user;
-        console.log("Creatd..", user)
         createUser(user)
 
       })
