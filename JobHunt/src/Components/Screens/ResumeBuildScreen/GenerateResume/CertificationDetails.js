@@ -11,7 +11,7 @@ const CertificationDetails = ({
   // Add more state variables for other certification details
   const handleNext = () => {
     const newCertificateDetails = { certificationName, issuedBy };
-    updateCertificationDetails = newCertificateDetails;
+    updateCertificationDetails(newCertificateDetails);
     onNext();
   };
   return (

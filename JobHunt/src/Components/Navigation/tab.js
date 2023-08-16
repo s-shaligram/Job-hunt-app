@@ -16,71 +16,70 @@ const Drawer = createDrawerNavigator();
 const ReactNavigationBottomTabs = () => {
     const {authenticatedUser} = useStateContext();
 
-    return (
-        <Drawer.Navigator
-            initialRouteName="MainTabs"
-            drawerContent={(props) => <CustomDrawer {...props} />}
-        >
-            <Drawer.Screen name="MainTabs">
-                {() => (
-                    <Tab.Navigator
-                        initialRouteName="Home"
-                    >
-                        {authenticatedUser.userType !== "recruiter" ? (
-                            <Tab.Screen
-                                name="Applications"
-                                component={ApplicantsScreen}
-                                options={{
-                                    tabBarIcon: ({color, size}) => (
-                                        <Icon name="message" color={color} size={35}/>
-                                    ),
-                                }}
-                            />) : (
-                            <Tab.Screen
-                                name="Resume"
-                                component={ResumeBuildScreen}
-                                options={{
-                                    tabBarIcon: ({color, size}) => (
-                                        <Icon name="message" color={color} size={35}/>
-                                    ),
-                                }}
-                            />
-                        )}
-                        <Tab.Screen
-                            name="Home"
-                            component={HomeScreen}
-                            options={{
-                                headerTitle: () => <Logo screenName={"JobHunt"}/>,
-                                tabBarIcon: ({color, size}) => (
-                                    <Icon name="home" color={color} size={35}/>
-                                ),
-                            }}
-                        />
-                        {authenticatedUser.userType === "recruiter" ? (
-                            <Tab.Screen
-                                name="PostJobsScreen"
-                                component={PostJobsScreen}
-                                options={{
-                                    tabBarIcon: ({color, size}) => (
-                                        <Icon name="person" color={color} size={35}/>
-                                    ),
-                                }}
-                            />
-                        ) : (
-                            <Tab.Screen
-                                name="Profile"
-                                component={ProfileScreen}
-                                options={{
-                                    tabBarIcon: ({color, size}) => (
-                                        <Icon name="person" color={color} size={35}/>
-                                    ),
-                                }}
-                            />
-                        )}
-                    </Tab.Navigator>
-                )}
-            </Drawer.Screen>
-        </Drawer.Navigator>
-    );
+  return (
+    <Drawer.Navigator
+      initialRouteName="MainTabs"
+      drawerContent={(props) => <CustomDrawer {...props} />}
+    >
+      <Drawer.Screen name="MainTabs">
+        {() => (
+          <Tab.Navigator initialRouteName="Home">
+            {authenticatedUser.userType === "Recruiter" ? (
+              <Tab.Screen
+                name="Applications"
+                component={ApplicantsScreen}
+                options={{
+                  tabBarIcon: ({ color, size }) => (
+                    <Icon name="message" color={color} size={35} />
+                  ),
+                }}
+              />
+            ) : (
+              <Tab.Screen
+                name="Resume"
+                component={ResumeBuildScreen}
+                options={{
+                  tabBarIcon: ({ color, size }) => (
+                    <Icon name="message" color={color} size={35} />
+                  ),
+                }}
+              />
+            )}
+            <Tab.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                headerTitle: () => <Logo screenName={"JobHunt"} />,
+                tabBarIcon: ({ color, size }) => (
+                  <Icon name="home" color={color} size={35} />
+                ),
+              }}
+            />
+            {authenticatedUser.userType === "Recruiter" ? (
+              <Tab.Screen
+                name="PostJobsScreen"
+                component={PostJobsScreen}
+                options={{
+                  tabBarIcon: ({ color, size }) => (
+                    <Icon name="person" color={color} size={35} />
+                  ),
+                }}
+              />
+            ) : (
+              <Tab.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={{
+                  tabBarIcon: ({ color, size }) => (
+                    <Icon name="person" color={color} size={35} />
+                  ),
+                }}
+              />
+            )}
+          </Tab.Navigator>
+        )}
+      </Drawer.Screen>
+    </Drawer.Navigator>
+  );
 };
 export default ReactNavigationBottomTabs;
