@@ -124,9 +124,8 @@ const SignUp = ({ navigation }) => {
         userType: userType,
         createdDate: Timestamp.fromDate(new Date())
       })
-      console.log("user created with ID: ", docRef.id);
     }
-    catch {
+    catch(error) {
       console.log("Error insert to user table", error)
     }
   }
