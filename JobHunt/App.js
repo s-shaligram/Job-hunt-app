@@ -17,7 +17,6 @@ const [user, setUser] = useState(null);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser !== null) {
-        console.log("logged in_____________>: ", currentUser);
       }
 
       setUser(currentUser);
@@ -27,7 +26,6 @@ const [user, setUser] = useState(null);
     return unsubscribe;
   }, []);
 
-  console.log("before____>", user);
   if (user) {
     return (
       <NavigationContainer>

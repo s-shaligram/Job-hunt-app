@@ -178,8 +178,8 @@ export const PostingList = ({navigation}) => {
             <ScrollView>
                 <View style={styles.container}>
                     {arr &&
-                        arr.map((posting) => (
-                            <Card containerStyle={{width: screenWidth * 0.95}}>
+                        arr.map((posting, index) => (
+                            <Card containerStyle={{width: screenWidth * 0.95}} key={index}>
                                 <Text style={{fontSize: 25, fontWeight: 'bold'}}>{posting?.jobTitle}</Text>
                                 <Text style={{fontWeight: 'bold'}}>{posting?.companyName}</Text>
                                 <Text style={{fontStyle: 'italic'}}>{posting?.location}</Text>

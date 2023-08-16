@@ -25,9 +25,6 @@ const ReactNavigationBottomTabs = () => {
           {() => (
             <Tab.Navigator
               initialRouteName="Home"
-              tabBarOptions={{
-                // ...your tabBarOptions
-              }}
             >
               <Tab.Screen
                 name="Resume"
