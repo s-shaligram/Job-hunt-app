@@ -1,7 +1,9 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import ViewMyResume from "./ViewMyResume";
+import ViewMyResume from "./ViewResume/ViewMyResume";
 import ResumeHome from "./ResumeHome";
+import AddMyResume from "./AddResume/AddMyResume";
+import GenerateScreen from "./GenerateResume/GenerateScreen";
 const Stack = createStackNavigator();
 
 const ResumeBuildScreen = () => {
@@ -16,8 +18,10 @@ const ResumeBuildScreen = () => {
       <Stack.Screen
         name="ViewMyResume"
         component={ViewMyResume}
-        options={{ headerShown: true, headerTitle: "Resume" }}
+        options={{ headerShown: false }}
       />
+      <Stack.Screen name="AddMyResume" component={AddMyResume} />
+      <Stack.Screen name="GenerateScreen" component={GenerateScreen} />
     </Stack.Navigator>
   );
 };
