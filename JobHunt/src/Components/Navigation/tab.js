@@ -26,9 +26,6 @@ const ReactNavigationBottomTabs = () => {
           {() => (
             <Tab.Navigator
               initialRouteName="Home"
-              // tabBarOptions={{
-              //   // ...your tabBarOptions
-              // }}
               screenOptions={{
                 tabBarStyle: [
                   {
@@ -51,7 +48,7 @@ const ReactNavigationBottomTabs = () => {
                 name="Home"
                 component={HomeScreen}
                 options={{
-                  headerTitle: "",
+                  // headerTitle: "",
                   tabBarIcon: ({ color, size }) => (
                     <Icon name="home" color={color} size={35} />
                   ),
