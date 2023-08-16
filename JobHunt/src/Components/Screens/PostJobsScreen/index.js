@@ -71,24 +71,12 @@ const PostJobsScreen = () => {
           postedBy: userEmail, // Include the current user's email as postedBy
           postedDate: Timestamp.fromDate(new Date())
         });
-        console.log("Document written with ID: ", docRef.id);
         console.log('Job posting submitted successfully.');
         setIsSaving(false)
       } catch (error) {
         console.log("Error in submission", error)
       }
 
-      console.log({
-        jobTitle,
-        field,
-        companyName,
-        jobType,
-        location,
-        jobDescription,
-        salary,
-      });
-
-  
       setAllowValidation(false)
       setJobTitle('');
       setField('');

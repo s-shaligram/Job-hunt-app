@@ -14,7 +14,6 @@ const AddMyResume = ({ navigation }) => {
       let result = await DocumentPicker.getDocumentAsync({
         copyToCacheDirectory: true,
       });
-      console.log(result);
       setUploadedResume(result); // Pass the result to the callback
     } catch (err) {
       console.warn("Document picking error:", err);
