@@ -17,17 +17,60 @@ const Drawer = createDrawerNavigator();
 const loginType = "recruiter";
 const ReactNavigationBottomTabs = () => {
   return (
-    <Drawer.Navigator
-      initialRouteName="MainTabs"
-      drawerContent={(props) => <CustomDrawer {...props} />}
-    >
-      <Drawer.Screen
-        name="JobHunt"
-        component={MainTabsScreen}
-        options={{ drawerIcon: () => <Icon name="menu" /> }}
-      />
-    </Drawer.Navigator>
-  );
+      <Drawer.Navigator
+        initialRouteName="MainTabs"
+        drawerContent={(props) => <CustomDrawer {...props} />}
+      >
+        <Drawer.Screen name="MainTabs">
+          {() => (
+            <Tab.Navigator
+              initialRouteName="Home"
+            >
+              <Tab.Screen
+                name="Resume"
+                component={ResumeBuildScreen}
+                options={{
+                  tabBarIcon: ({ color, size }) => (
+                    <Icon name="message" color={color} size={35} />
+                  ),
+                }}
+              />
+              <Tab.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                  headerTitle: () => <Logo screenName={"JobHunt"} />,
+                  tabBarIcon: ({ color, size }) => (
+                    <Icon name="home" color={color} size={35} />
+                  ),
+                }}
+              />
+              {loginType === "recruiter" ? (
+                <Tab.Screen
+                  name="PostJobsScreen"
+                  component={PostJobsScreen}
+                  options={{
+                    tabBarIcon: ({ color, size }) => (
+                      <Icon name="person" color={color} size={35} />
+                    ),
+                  }}
+                />
+              ) : (
+                <Tab.Screen
+                  name="Profile"
+                  component={ProfileScreen}
+                  options={{
+                    tabBarIcon: ({ color, size }) => (
+                      <Icon name="person" color={color} size={35} />
+                    ),
+                  }}
+                />
+              )}
+            </Tab.Navigator>
+          )}
+        </Drawer.Screen>
+      </Drawer.Navigator>
+    );
 };
 
 const MainTabsScreen = () => {

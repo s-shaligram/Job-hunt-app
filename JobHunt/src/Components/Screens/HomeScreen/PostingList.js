@@ -179,7 +179,7 @@ export const PostingList = ({navigation}) => {
                 <View style={styles.container}>
                     {arr &&
                         arr.map((posting, index) => (
-                            <Card key={index} containerStyle={{width: screenWidth * 0.95}}>
+                            <Card containerStyle={{width: screenWidth * 0.95}} key={index}>
                                 <Text style={{fontSize: 25, fontWeight: 'bold'}}>{posting?.jobTitle}</Text>
                                 <Text style={{fontWeight: 'bold'}}>{posting?.companyName}</Text>
                                 <Text style={{fontStyle: 'italic'}}>{posting?.location}</Text>
