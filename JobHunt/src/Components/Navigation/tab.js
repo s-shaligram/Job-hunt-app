@@ -18,15 +18,24 @@ const loginType = "recruiter"
 const ReactNavigationBottomTabs = () => {
   return (
       <Drawer.Navigator
-        initialRouteName="MainTabs"
+        initialRouteName="Jobs Search"
         drawerContent={(props) => <CustomDrawer {...props} />}
       >
-        <Drawer.Screen name="MainTabs">
+        <Drawer.Screen name="Job Search"
+        >
           {() => (
             <Tab.Navigator
               initialRouteName="Home"
-              tabBarOptions={{
-                // ...your tabBarOptions
+              // tabBarOptions={{
+              //   // ...your tabBarOptions
+              // }}
+              screenOptions={{
+                tabBarStyle: [
+                  {
+                    display: "flex",
+                  },
+                  null,
+                ],
               }}
             >
               <Tab.Screen
@@ -42,10 +51,11 @@ const ReactNavigationBottomTabs = () => {
                 name="Home"
                 component={HomeScreen}
                 options={{
-                  headerTitle: () => <Logo screenName={"JobHunt"} />,
+                  headerTitle: "",
                   tabBarIcon: ({ color, size }) => (
                     <Icon name="home" color={color} size={35} />
                   ),
+                  headerShown: false,
                 }}
               />
               {loginType === "recruiter" ? (
