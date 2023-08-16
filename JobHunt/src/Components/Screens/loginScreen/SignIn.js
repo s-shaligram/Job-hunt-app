@@ -54,9 +54,7 @@ validatePassword()
     }
   }
   }
-    console.log('iiiiiiiiiiiiii')
-    console.log(authenticatedUser)
-    console.log('XXXXXXXXXXXXXXXXXXXXX')
+
   return (
     <View style={styles.container}>
       <Logo style={styles.logo}/>
