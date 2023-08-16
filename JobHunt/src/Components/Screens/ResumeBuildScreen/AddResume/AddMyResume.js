@@ -80,7 +80,6 @@ const AddMyResume = ({ navigation }) => {
 
   return (
     <View>
-      <Text>Add Resume</Text>
       <Picker
         selectedValue={selectedOption}
         onValueChange={(itemValue) => setSelectedOption(itemValue)}
@@ -106,9 +105,9 @@ const AddMyResume = ({ navigation }) => {
           </View>
         )}
       {/* Button to open the uploaded resume */}
-      <TouchableOpacity onPress={handleOpenResume}>
+      {/* <TouchableOpacity onPress={handleOpenResume}>
         <Text>Open Resume</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
