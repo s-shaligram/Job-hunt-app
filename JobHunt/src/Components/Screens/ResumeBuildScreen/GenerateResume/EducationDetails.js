@@ -7,7 +7,7 @@ const EducationDetails = ({ onNext, onBack, updateEducationDetails }) => {
   // Add more state variables for other education details
   const handleNext = () => {
     const newEducationDetail = { school, degree };
-    updateEducationDetails = newEducationDetail;
+    updateEducationDetails(newEducationDetail);
     onNext();
   };
   return (

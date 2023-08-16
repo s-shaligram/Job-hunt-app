@@ -25,7 +25,7 @@ const ReactNavigationBottomTabs = () => {
       <Drawer.Screen name="MainTabs">
         {() => (
           <Tab.Navigator initialRouteName="Home">
-            {authenticatedUser.userType !== "recruiter" ? (
+            {authenticatedUser.userType === "Recruiter" ? (
               <Tab.Screen
                 name="Applications"
                 component={ApplicantsScreen}
@@ -56,7 +56,7 @@ const ReactNavigationBottomTabs = () => {
                 ),
               }}
             />
-            {authenticatedUser.userType === "recruiter" ? (
+            {authenticatedUser.userType === "Recruiter" ? (
               <Tab.Screen
                 name="PostJobsScreen"
                 component={PostJobsScreen}
