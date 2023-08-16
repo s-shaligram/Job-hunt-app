@@ -193,7 +193,6 @@ export const PostingList = ({navigation}) => {
                                         navigation.navigate('Job Details', {details: posting})
                                     }}/>
                                 </View>
-
                             </Card>
                         ))}
                 </View>
