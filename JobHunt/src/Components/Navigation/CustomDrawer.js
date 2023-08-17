@@ -7,6 +7,7 @@ import { auth, storage, ref } from '../Database/dbConfig';
 import { uploadBytes, uploadString, contentType, getDownloadURL, putString } from "firebase/storage";
 import { Permissions } from 'expo';
 import * as FileSystem from 'expo-file-system';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 
 const CustomDrawer = ({ navigation }) => {
@@ -28,7 +29,7 @@ const CustomDrawer = ({ navigation }) => {
             quality: 1,
         });
 
-        console.log(result);
+        //console.log(result);
         uploadImage(result.assets[0].uri)
 
         if (!result.canceled) {
@@ -51,10 +52,10 @@ const CustomDrawer = ({ navigation }) => {
         //const blobFile = await uriToBlob(file)
         console.log(">>>>")
 
-        const blob1 = await createBlobFromURI(file);
-        console.log(blob1, ">>>>")
+        // const blob1 = await createBlobFromURI(file);
+        // console.log(blob1, ">>>>")
         const base64 = await FileSystem.readAsStringAsync(file, { encoding: 'base64' });
-        console.log("b64", base64)
+        //console.log("b64", base64)
 
 
         const metadata = {
@@ -62,14 +63,45 @@ const CustomDrawer = ({ navigation }) => {
         };
         const imageName = file.substring(file.lastIndexOf("/") + 1);
         const storageRef = ref(storage, `images/profilePic/${imageName}`);
-        //const modifiedBase64 = 'data:image/jpeg;base64,' + base64;
-        uploadString(storageRef, base64.split(',')[1], 'base64').then((snapshot) => {
-            console.log('Uploaded a data_url string!');
-        })
-            .catch((error) => {
-                console.error('Error uploading data_url:', error);
-                // You can handle the error here, display a message to the user, etc.
-            });
+        const modifiedBase64 = 'data:image/jpeg;base64,' + base64;
+        console.log("before___res")
+
+        const format = ImageManipulator.SaveFormat.JPEG;
+
+        manipResult = await ImageManipulator.manipulateAsync(file, [], {
+            base64: true,
+            compress: 0.9,
+            format: format,
+        });
+        compressed = true;
+        console.log('file size usemedia after compression', manipResult.base64.length);
+
+        // uploadBytes(storageRef, manipResult).then((snapshot) => {
+        //     console.log('Uploaded a blob or file!');
+        //   })
+
+        uploadString(storageRef, manipResult, 'base64').then((snapshot) => {
+        console.log('Uploaded a base64 string!',snapshot);
+        }) 
+        .catch((error) => {
+        console.log("ERROR",error)
+               });
+      
+        // const imageBlob = await getBlobFroUri(file).then(()=>{
+        //     console.log("done___")
+        // })
+        // .catch(error => {
+        //     console.log("error", error);
+        // });
+          
+       //console.log("Image Blob__>",imageBlob);
+        // uploadString(storageRef, base64.split(',')[1], 'base64').then((snapshot) => {
+        //     console.log('Uploaded a data_url string!');
+        // })
+        //     .catch((error) => {
+        //         console.error('Error uploading data_url:', error);
+        //         // You can handle the error here, display a message to the user, etc.
+        //     });
 
 
         // Convert bytes to ArrayBuffer
@@ -87,6 +119,33 @@ const CustomDrawer = ({ navigation }) => {
 
 
     };
+
+    const getBlobFromBase64 = async (base64) => {
+        const { uri } = FileSystem.cacheDirectory + 'temp_image.jpg';
+        await FileSystem.writeAsStringAsync(uri, base64, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+        return await FileSystem.readAsStringAsync(uri, {
+          encoding: FileSystem.EncodingType.UTF8,
+        });
+      }
+      const getBlobFroUri = async (uri) => {
+        console.log("Inside get",uri)
+        const blob = await new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.onload = function () {
+            resolve(xhr.response);
+          };
+          xhr.onerror = function (e) {
+            reject(new TypeError("Network request failed"));
+          };
+          xhr.responseType = "blob";
+          xhr.open("GET", uri, true);
+          xhr.send(null);
+        });
+      
+        return blob;
+      };
 
     const saveImageUrlToDatabase = (imageUrl) => {
         console.log("ready for db")

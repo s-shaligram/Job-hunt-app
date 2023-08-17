@@ -19,5 +19,5 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp); // Initialize Firestore
 const storage = getStorage(firebaseApp); //initiate Storage for file upload
-console.log("my db:",db)
+//console.log("my db:",db)
 export { auth, db ,storage,ref}; // Export the Firestore instance as well 

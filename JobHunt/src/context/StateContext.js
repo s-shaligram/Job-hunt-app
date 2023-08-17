@@ -10,7 +10,12 @@ export const StateProvider = (props) => {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
-            await getDoc(currentUser.email)
+            console.log("current",currentUser)
+            if (!currentUser){
+                setAuthenticatedUser(null);
+                return ;
+            }
+            await getDoc(currentUser?.email)
                 .then((userData) => {
                     if (userData) {
                         setAuthenticatedUser({
