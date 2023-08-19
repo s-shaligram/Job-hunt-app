@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { useStateContext } from "../../../../context/StateContext";
 
 const PersonalDetails = ({ onNext, onBack, updatePersonalDetails }) => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  // Add more state variables for other personal details
+  const { authenticatedUser } = useStateContext();
+  // Initialize email with authenticated user's email if available, otherwise use an empty string
+  const initialEmail = authenticatedUser ? authenticatedUser.email : "";
+  const [email, setEmail] = useState(initialEmail);
+
   const handleNext = () => {
     const newPersonalData = { name, email }; // Create an object with collected data
     updatePersonalDetails(newPersonalData); // Update parent component's state
     onNext(); // Move to the next step
+    console.log("new PD:", newPersonalData);
   };
   return (
     <View>
@@ -27,7 +32,7 @@ const PersonalDetails = ({ onNext, onBack, updatePersonalDetails }) => {
       />
       {/* Add more input fields for other personal details */}
       <View style={styles.buttonContainer}>
-        <Button title="Back" onPress={onBack} />
+        {/* <Button title="Back" onPress={onBack} /> */}
         <Button title="Next" onPress={handleNext} />
       </View>
     </View>
@@ -59,10 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
   },
   buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginStart: 130,
-    marginEnd: 130,
+    alignItems: "center",
   },
 });
 

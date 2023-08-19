@@ -6,27 +6,35 @@ import ExperienceDetails from "./ExperienceDetails";
 import ProjectDetails from "./ProjectDetails";
 import EducationDetails from "./EducationDetails";
 import CertificationDetails from "./CertificationDetails";
-import { generatePDF } from "./pdfGenerator";
-
+import { useStateContext } from "../../../../context/StateContext";
+import { auth, db } from "../../../Database/dbConfig";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 const HomeScreen = () => {
+  const { personalDetails, setPersonalDetails } = useStateContext();
   const [step, setStep] = useState(0);
-  const [personalDetails, setPersonalDetails] = useState({
-    name: "",
-    email: "",
-  });
+  //const [personalDetails, setPersonalDetails] = useState([]);
   const [experienceDetails, setExperienceDetails] = useState([]);
   const [projectDetails, setProjectDetails] = useState([]);
   const [educationDetails, setEducationDetails] = useState([]);
   const [certificationDetails, setCertificationDetails] = useState([]);
 
-  const handleGeneratePDF = async () => {
-    await generatePDF({
-      personalDetails,
-      experienceDetails,
-      projectDetails,
-      educationDetails,
-      certificationDetails,
-    });
+  const saveResume = async () => {
+    try {
+      const currentUser = auth.currentUser;
+      const userEmail = currentUser ? currentUser.email : "";
+      const docRef = await addDoc(collection(db, "Resumes"), {
+        personalDetails: personalDetails,
+        experienceDetails: experienceDetails,
+        projectDetails: projectDetails,
+        educationDetails: educationDetails,
+        certificationDetails: certificationDetails,
+        postedBy: userEmail, // Include the current user's email as postedBy
+        postedDate: Timestamp.fromDate(new Date()),
+      });
+      console.log("Resume Data saved");
+    } catch (error) {
+      console.log("Error in submission", error);
+    }
   };
 
   const handleNext = () => {
@@ -96,7 +104,7 @@ const HomeScreen = () => {
             educationDetails={educationDetails}
             certificationDetails={certificationDetails}
           />
-          <Button title="Generate PDF" onPress={handleGeneratePDF} />
+          <Button title="Save Resume" onPress={saveResume} />
         </>
       )}
     </View>

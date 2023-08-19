@@ -1,13 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-
+import { useStateContext } from "../../../../context/StateContext";
 const ResumePreview = ({
-  personalDetails,
+  //personalDetails,
   experienceDetails,
   projectDetails,
   educationDetails,
   certificationDetails,
 }) => {
+  const { personalDetails } = useStateContext();
+  console.log("personalDetail:", personalDetails);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.heading}>Resume Preview</Text>

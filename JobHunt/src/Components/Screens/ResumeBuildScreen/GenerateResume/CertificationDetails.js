@@ -8,10 +8,15 @@ const CertificationDetails = ({
 }) => {
   const [certificationName, setCertificationName] = useState("");
   const [issuedBy, setIssuedBy] = useState("");
+  const [Certifications, setCertification] = useState([]);
   // Add more state variables for other certification details
-  const handleNext = () => {
+
+  const handleAddCertificate = () => {
     const newCertificateDetails = { certificationName, issuedBy };
-    updateCertificationDetails(newCertificateDetails);
+    setCertification([...Certifications, newCertificateDetails]);
+  };
+  const handleNext = () => {
+    updateCertificationDetails(Certifications);
     onNext();
   };
   return (
@@ -30,10 +35,19 @@ const CertificationDetails = ({
         style={styles.input}
       />
       {/* Add more input fields for other certification details */}
+      <Button title="Add Education" onPress={handleAddCertificate} />
       <View style={styles.buttonContainer}>
         <Button title="Back" onPress={onBack} />
         <Button title="Next" onPress={handleNext} />
       </View>
+      {Certifications.map((certificate, index) => (
+        <View key={index} style={styles.certificateItem}>
+          <Text style={{ ...styles.certificateText, fontWeight: "bold" }}>
+            {certificate.certificationName}
+          </Text>
+          <Text style={styles.certificateText}>{certificate.issuedBy}</Text>
+        </View>
+      ))}
     </View>
   );
 };
@@ -66,6 +80,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginStart: 130,
     marginEnd: 130,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  certificateItem: {
+    marginTop: 10,
+    marginBottom: 10,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    backgroundColor: "#DCDCDC",
+    padding: 10,
+    borderRadius: 5,
+  },
+  certificateText: {
+    fontSize: 20,
   },
 });
 
