@@ -11,7 +11,7 @@ const ResumePreview = ({
   const { personalDetails } = useStateContext();
   console.log("personalDetail:", personalDetails);
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View contentContainerStyle={styles.container}>
       <Text style={styles.heading}>{personalDetails.resumeName}</Text>
       <View style={styles.section}>
         <Text style={styles.sectionHeading}>Personal Details</Text>
@@ -62,7 +62,7 @@ const ResumePreview = ({
           </View>
         ))}
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
