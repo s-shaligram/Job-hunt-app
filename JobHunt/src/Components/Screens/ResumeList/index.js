@@ -1,45 +1,33 @@
 
-import React, { useState ,useEffect} from 'react';
-import { View, Text, FlatList, } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 import styles from './styles';
 import SelectionTile from '../SelectionTile/selectiontile';
-import { auth,db } from '../../Database/dbConfig';
-import { collection,getDocs,setDoc, doc, query, where, deleteDoc } from "firebase/firestore";
+import { auth, db } from '../../Database/dbConfig';
+import { collection, getDocs, setDoc, doc, query, where, deleteDoc } from "firebase/firestore";
 
 
+const ResumeList = ({ navigation }) => {
+  const [resumeList, setResumeList] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
-
-
-const resumes = [
-    { id: 1, title: 'Resume 1', details: 'Details for Resume 1...' },
-    { id: 2, title: 'Resume 2', details: 'Details for Resume 2...' },
-    // Add more resumes here
-  ];
-
-
-
-
- const ResumeList = ({ navigation }) => {
- useState [resumeList,setResumeList] = useState([])
-
- useEffect(() => {
+  useEffect(() => {
     loadResumeList()
   }, [])
-  
-  const loadResumeList = async () =>{
-  
-  const list = await loadDataFromDB()
-  console.log("List__________________->",list)
-  setResumeList(list)
+
+  const loadResumeList = async () => {
+
+    const list = await loadDataFromDB()
+    setResumeList(list)
+    setIsLoading(false);
   }
 
-const loadDataFromDB = async () => {
-    console.log("loadDataFromDB");
+  const loadDataFromDB = async () => {
     const currentUser = auth.currentUser;
     const userEmail = currentUser ? currentUser.email : '';
     const resumeCollectionRef = collection(db, 'Resumes');
     const q = query(resumeCollectionRef, where('postedBy', '==', userEmail));
-   
+
 
     try {
       const querySnapshot = await getDocs(q);
@@ -56,28 +44,25 @@ const loadDataFromDB = async () => {
     }
   };
 
-    return (
-      <View style={styles.container}>
-        <FlatList
-          data={resumeList}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            // <TouchableOpacity
-            //   style={styles.resumeItem}
-            //   onPress={() => navigation.navigate('ResumeDetail', { resume: item })}
-            // >
-            //   <Text>{item.title}</Text>
-            // </TouchableOpacity>
-              <SelectionTile
-              name={item.personalDetails.resumeName}
-              routeTo={"ResumeDetail"}
-              navigation={navigation}
-              resume = {item}
-            />
-          )}
-        />
-      </View>
-    );
-  };
+  return (
+    <View style={styles.container}>
+      {isLoading && <View style={styles.container}>
+        <ActivityIndicator size="large" color="red" />
+      </View>}
+      <FlatList
+        data={resumeList}
+        keyExtractor={(item) => item.postedDate.nanoseconds}
+        renderItem={({ item }) => (
+          <SelectionTile
+            name={item.personalDetails.resumeName}
+            routeTo={"ResumeDetail"}
+            navigation={navigation}
+            resume={item}
+          />
+        )}
+      />
+    </View>
+  );
+};
 
-  export default ResumeList; 
+export default ResumeList; 
