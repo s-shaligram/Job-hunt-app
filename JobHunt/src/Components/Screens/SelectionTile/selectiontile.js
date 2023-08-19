@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 const SelectionTile = (props) => {
-  const { name, routeTo, navigation } = props;
+  const { name, routeTo, navigation,resume } = props;
   return (
     <TouchableOpacity
       style={[
@@ -9,7 +9,12 @@ const SelectionTile = (props) => {
         { backgroundColor: "white", borderColor: "white", borderWidth: 2 },
       ]}
       onPress={() => {
+        if(resume){
+          navigation.navigate(routeTo, { resume: resume })
+        }
+        else{
         navigation.navigate(routeTo);
+        }
       }}
     >
       <View>
