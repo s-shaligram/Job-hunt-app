@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { useStateContext } from "../../../../context/StateContext";
 
 const PersonalDetails = ({ onNext, onBack, updatePersonalDetails }) => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  //const [personalinfo, setPersonalinfo] = useState([]);
-  // Add more state variables for other personal details
+  const { authenticatedUser } = useStateContext();
+  // Initialize email with authenticated user's email if available, otherwise use an empty string
+  const initialEmail = authenticatedUser ? authenticatedUser.email : "";
+  const [email, setEmail] = useState(initialEmail);
+
   const handleNext = () => {
     const newPersonalData = { name, email }; // Create an object with collected data
-    //setPersonalinfo([personalinfo, newPersonalData]);
     updatePersonalDetails(newPersonalData); // Update parent component's state
     onNext(); // Move to the next step
     console.log("new PD:", newPersonalData);

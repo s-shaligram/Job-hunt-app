@@ -9,27 +9,33 @@ export const StateProvider = (props) => {
   const [loading, setLoading] = useState(true);
   const [personalDetails, setPersonalDetails] = useState([]);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
-      await getDoc(currentUser.email)
-        .then((userData) => {
-          if (userData) {
-            setAuthenticatedUser({
-              ...userData,
-              displayName: currentUser.displayName,
-              photoURL: currentUser.photoURL,
-              phoneNumber: currentUser.phoneNumber,
-              isAnonymous: currentUser.isAnonymous,
-              emailVerified: currentUser.emailVerified,
-            });
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          setAuthenticatedUser(null);
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+            console.log("current",currentUser)
+            if (!currentUser){
+                setAuthenticatedUser(null);
+                setLoading(false);
+                return ;
+            }
+            await getDoc(currentUser?.email)
+                .then((userData) => {
+                    if (userData) {
+                        setAuthenticatedUser({
+                            ...userData,
+                            displayName: currentUser.displayName,
+                            photoURL: currentUser.photoURL,
+                            phoneNumber: currentUser.phoneNumber,
+                            isAnonymous: currentUser.isAnonymous,
+                            emailVerified: currentUser.emailVerified,
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    setAuthenticatedUser(null);
+                });
+            setLoading(false);
         });
-      setLoading(false);
-    });
 
     return unsubscribe;
   }, []);

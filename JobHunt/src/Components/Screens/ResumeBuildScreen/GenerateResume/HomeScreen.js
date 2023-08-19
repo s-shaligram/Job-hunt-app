@@ -6,12 +6,9 @@ import ExperienceDetails from "./ExperienceDetails";
 import ProjectDetails from "./ProjectDetails";
 import EducationDetails from "./EducationDetails";
 import CertificationDetails from "./CertificationDetails";
-import generatePDF from "./pdfGenerator";
 import { useStateContext } from "../../../../context/StateContext";
-import {
-  uploadPDFToFirebase,
-  savePDFMetadataToFirestore,
-} from "./firebaseUtils";
+import { auth, db } from "../../../Database/dbConfig";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 const HomeScreen = () => {
   const { personalDetails, setPersonalDetails } = useStateContext();
   const [step, setStep] = useState(0);
@@ -21,87 +18,22 @@ const HomeScreen = () => {
   const [educationDetails, setEducationDetails] = useState([]);
   const [certificationDetails, setCertificationDetails] = useState([]);
 
-  // const handleGeneratePDF = async () => {
-  //   try {
-  //     const pdfBytes = await generatePDF({
-  //       personalDetails,
-  //       experienceDetails,
-  //       projectDetails,
-  //       educationDetails,
-  //       certificationDetails,
-  //     });
-
-  //     const pdfFileName = "resume"; // You can set a desired file name
-  //     const pdfDownloadURL = await uploadPDFToFirebase(pdfBytes, pdfFileName);
-
-  //     if (!pdfDownloadURL) {
-  //       // Handle failure to upload PDF
-  //       console.error("Failed to upload PDF to Firebase Storage");
-  //       return;
-  //     }
-
-  //     const pdfMetadata = {
-  //       personalDetails,
-  //       experienceDetails,
-  //       projectDetails,
-  //       educationDetails,
-  //       certificationDetails,
-  //       pdfDownloadURL,
-  //       createdAt: firestore.FieldValue.serverTimestamp(),
-  //     };
-
-  //     const success = await savePDFMetadataToFirestore(pdfMetadata);
-
-  //     if (success) {
-  //       // Handle successful PDF generation and metadata saving
-  //     } else {
-  //       // Handle failure to save metadata
-  //       console.error("Failed to save PDF metadata to Firestore");
-  //     }
-  //   } catch (error) {
-  //     // Handle any unexpected errors during the PDF generation process
-  //     console.error("Error generating and saving PDF:", error);
-  //   }
-  // };
-  const handleGeneratePDF = async () => {
+  const saveResume = async () => {
     try {
-      const pdfFilePath = await generatePDF({
-        personalDetails,
-        experienceDetails,
-        projectDetails,
-        educationDetails,
-        certificationDetails,
+      const currentUser = auth.currentUser;
+      const userEmail = currentUser ? currentUser.email : "";
+      const docRef = await addDoc(collection(db, "Resumes"), {
+        personalDetails: personalDetails,
+        experienceDetails: experienceDetails,
+        projectDetails: projectDetails,
+        educationDetails: educationDetails,
+        certificationDetails: certificationDetails,
+        postedBy: userEmail, // Include the current user's email as postedBy
+        postedDate: Timestamp.fromDate(new Date()),
       });
-
-      const pdfBytes = await RNFetchBlob.fs.readFile(pdfFilePath, "base64");
-
-      const pdfFileName = "resume.pdf"; // Set a desired file name
-      const pdfDownloadURL = await uploadPDFToFirebase(pdfBytes, pdfFileName);
-
-      if (!pdfDownloadURL) {
-        console.error("Failed to upload PDF to Firebase Storage");
-        return;
-      }
-
-      const pdfMetadata = {
-        personalDetails,
-        experienceDetails,
-        projectDetails,
-        educationDetails,
-        certificationDetails,
-        pdfDownloadURL,
-        createdAt: firestore.FieldValue.serverTimestamp(),
-      };
-
-      const success = await savePDFMetadataToFirestore(pdfMetadata);
-
-      if (success) {
-        // Handle successful PDF generation and metadata saving
-      } else {
-        console.error("Failed to save PDF metadata to Firestore");
-      }
+      console.log("Resume Data saved");
     } catch (error) {
-      console.error("Error generating and saving PDF:", error);
+      console.log("Error in submission", error);
     }
   };
 
@@ -172,7 +104,7 @@ const HomeScreen = () => {
             educationDetails={educationDetails}
             certificationDetails={certificationDetails}
           />
-          <Button title="Generate PDF" onPress={handleGeneratePDF} />
+          <Button title="Save Resume" onPress={saveResume} />
         </>
       )}
     </View>
