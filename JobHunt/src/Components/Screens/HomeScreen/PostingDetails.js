@@ -1,5 +1,4 @@
-import {Button, ScrollView, Text, View} from "react-native";
-import styles from "./styles";
+import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
 import {Card} from "react-native-elements";
 import React from "react";
 
@@ -8,7 +7,7 @@ export const PostingDetails = ({route, navigation}) => {
 
     return (
         <ScrollView>
-            <View style={styles.container}>
+            <View>
                 <Card containerStyle={{marginBottom: 15}}>
                     <View style={{marginBottom: 20}}><Button onPress={() => navigation.goBack()} title={"Apply"}></Button></View>
                     <Text style={{fontSize: 25, fontWeight: 'bold'}}>{details?.jobTitle}</Text>

@@ -10,7 +10,6 @@ export const StateProvider = (props) => {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
-            console.log("current",currentUser)
             if (!currentUser){
                 setAuthenticatedUser(null);
                 setLoading(false);
