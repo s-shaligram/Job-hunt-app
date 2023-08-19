@@ -19,7 +19,7 @@ function AppNavigator() {
 
     return (
         <NavigationContainer>
-            {authenticatedUser ? <ReactNavigationBottomTabs /> : <LoginScreen />}
+        {authenticatedUser ? <ReactNavigationBottomTabs /> : <LoginScreen />}
         </NavigationContainer>
     );
 }

@@ -13,6 +13,7 @@ export const StateProvider = (props) => {
             console.log("current",currentUser)
             if (!currentUser){
                 setAuthenticatedUser(null);
+                setLoading(false);
                 return ;
             }
             await getDoc(currentUser?.email)
