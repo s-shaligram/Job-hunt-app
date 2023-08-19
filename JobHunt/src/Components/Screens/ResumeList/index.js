@@ -1,8 +1,13 @@
 
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import React, { useState ,useEffect} from 'react';
+import { View, Text, FlatList, } from 'react-native';
 import styles from './styles';
 import SelectionTile from '../SelectionTile/selectiontile';
+import { auth,db } from '../../Database/dbConfig';
+import { collection,getDocs,setDoc, doc, query, where, deleteDoc } from "firebase/firestore";
+
+
+
 
 
 const resumes = [
@@ -12,11 +17,49 @@ const resumes = [
   ];
 
 
-  const ResumeList = ({ navigation }) => {
+
+
+ const ResumeList = ({ navigation }) => {
+ useState [resumeList,setResumeList] = useState([])
+
+ useEffect(() => {
+    loadResumeList()
+  }, [])
+  
+  const loadResumeList = async () =>{
+  
+  const list = await loadDataFromDB()
+  console.log("List__________________->",list)
+  setResumeList(list)
+  }
+
+const loadDataFromDB = async () => {
+    console.log("loadDataFromDB");
+    const currentUser = auth.currentUser;
+    const userEmail = currentUser ? currentUser.email : '';
+    const resumeCollectionRef = collection(db, 'Resumes');
+    const q = query(resumeCollectionRef, where('postedBy', '==', userEmail));
+   
+
+    try {
+      const querySnapshot = await getDocs(q);
+
+      // Extract data from the querySnapshot
+      const resList = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        resList.push(data);
+      });
+      return resList;
+    } catch (error) {
+      console.error('Error loading data:', error);
+    }
+  };
+
     return (
       <View style={styles.container}>
         <FlatList
-          data={resumes}
+          data={resumeList}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             // <TouchableOpacity
@@ -26,7 +69,7 @@ const resumes = [
             //   <Text>{item.title}</Text>
             // </TouchableOpacity>
               <SelectionTile
-              name={item.title}
+              name={item.personalDetails.resumeName}
               routeTo={"ResumeDetail"}
               navigation={navigation}
               resume = {item}

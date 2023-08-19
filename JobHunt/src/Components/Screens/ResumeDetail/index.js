@@ -2,16 +2,20 @@
 import React from 'react';
 import { View, Text} from 'react-native';
 import styles from './styles';
+import ResumePreview from '../ResumeBuildScreen/GenerateResume/ResumePreview'
 
 
 const ResumeDetail = ({ route }) => {
-    const { resume } = route.params;
+    const { resume} = route.params;
   
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Title: {resume.title}</Text>
-        <Text style={styles.details}>Details: {resume.details}</Text>
-      </View>
+        <ResumePreview
+        personalDetails={resume.personalDetails}
+        experienceDetails={resume.experienceDetails}
+        projectDetails={resume.projectDetails}
+        educationDetails={resume.educationDetails}
+        certificationDetails={resume.certificationDetails}
+      />
     );
   };
   
