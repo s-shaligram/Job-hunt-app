@@ -5,6 +5,7 @@ import ResumeHome from "./ResumeHome";
 import AddMyResume from "./AddResume/AddMyResume";
 import GenerateScreen from "./GenerateResume/GenerateScreen";
 import ResumeList from "../ResumeList";
+import ResumeDetail from "../ResumeDetail";
 const Stack = createStackNavigator();
 
 const ResumeBuildScreen = () => {
@@ -23,6 +24,7 @@ const ResumeBuildScreen = () => {
       />
       <Stack.Screen name="AddMyResume" component={AddMyResume} />
       <Stack.Screen name="GenerateScreen" component={GenerateScreen} />
+      <Stack.Screen name="ResumeDetail" component={ResumeDetail} />
     </Stack.Navigator>
   );
 };

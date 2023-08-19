@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import styles from './styles';
+import SelectionTile from '../SelectionTile/selectiontile';
 
 
 const resumes = [
@@ -18,12 +19,18 @@ const resumes = [
           data={resumes}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.resumeItem}
-              onPress={() => navigation.navigate('ResumeDetail', { resume: item })}
-            >
-              <Text>{item.title}</Text>
-            </TouchableOpacity>
+            // <TouchableOpacity
+            //   style={styles.resumeItem}
+            //   onPress={() => navigation.navigate('ResumeDetail', { resume: item })}
+            // >
+            //   <Text>{item.title}</Text>
+            // </TouchableOpacity>
+              <SelectionTile
+              name={item.title}
+              routeTo={"ResumeDetail"}
+              navigation={navigation}
+              resume = {item}
+            />
           )}
         />
       </View>
