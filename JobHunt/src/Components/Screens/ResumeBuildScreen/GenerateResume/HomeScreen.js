@@ -32,6 +32,7 @@ const HomeScreen = ({ navigation }) => {
         postedDate: Timestamp.fromDate(new Date()),
       });
       console.log("Resume Data saved");
+      navigation.navigate('ResumeHome')
     } catch (error) {
       console.log("Error in submission", error);
     }
@@ -96,7 +97,7 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       {renderStep()}
       {step === 5 && (
-        <>
+        <ScrollView>
           <ResumePreview
             personalDetails={personalDetails}
             experienceDetails={experienceDetails}
@@ -105,7 +106,7 @@ const HomeScreen = ({ navigation }) => {
             certificationDetails={certificationDetails}
           />
           <Button title="Save Resume" onPress={saveResume} />
-        </>
+        </ScrollView>
       )}
     </View>
   );
@@ -114,7 +115,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
   },
 });
 
