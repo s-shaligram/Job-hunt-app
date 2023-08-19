@@ -4,6 +4,7 @@ import ViewMyResume from "./ViewResume/ViewMyResume";
 import ResumeHome from "./ResumeHome";
 import AddMyResume from "./AddResume/AddMyResume";
 import GenerateScreen from "./GenerateResume/GenerateScreen";
+import ResumeList from "../ResumeList";
 const Stack = createStackNavigator();
 
 const ResumeBuildScreen = () => {
@@ -16,8 +17,8 @@ const ResumeBuildScreen = () => {
       />
 
       <Stack.Screen
-        name="ViewMyResume"
-        component={ViewMyResume}
+        name="ResumeList"
+        component={ResumeList}
         options={{ headerShown: false }}
       />
       <Stack.Screen name="AddMyResume" component={AddMyResume} />
