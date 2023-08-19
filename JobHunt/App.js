@@ -8,9 +8,18 @@ import { View } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
-
 export default function App() {
 
+    return (
+        // <View onLayout={onLayoutRootView}>
+        <StateProvider>
+            <AppNavigator />
+        </StateProvider>
+        // </View>
+    );
+}
+function AppNavigator() {
+    const { authenticatedUser, loading } = useStateContext();
     const [appIsReady, setAppIsReady] = useState(false);
 
 useEffect(() => {
@@ -38,25 +47,16 @@ useEffect(() => {
     return null;
   }
 
-    return (
-        <View onLayout={onLayoutRootView}>
-        <StateProvider>
-            <AppNavigator />
-        </StateProvider>
-        </View>
-    );
-}
-function AppNavigator() {
-    const { authenticatedUser, loading } = useStateContext();
-
     if (loading) {
         return null;
     }
 
     return (
         
+      <View onLayout={onLayoutRootView}>
         <NavigationContainer>
             {authenticatedUser ? <ReactNavigationBottomTabs /> : <LoginScreen />}
         </NavigationContainer>
+        </View>
     );
 }

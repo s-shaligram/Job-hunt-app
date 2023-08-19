@@ -29,6 +29,7 @@
     "expo-image-picker": "~14.3.2",
     "expo-linking": "~5.0.2",
     "expo-permissions": "~14.2.1",
+    "expo-splash-screen": "^0.20.5",
     "expo-status-bar": "~1.6.0",
     "file-saver": "^2.0.5",
     "firebase": "^10.1.0",
