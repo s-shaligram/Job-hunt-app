@@ -14,6 +14,8 @@ const CertificationDetails = ({
   const handleAddCertificate = () => {
     const newCertificateDetails = { certificationName, issuedBy };
     setCertification([...Certifications, newCertificateDetails]);
+    setIssuedBy("");
+    setCertificationName("");
   };
   const handleNext = () => {
     updateCertificationDetails(Certifications);
@@ -35,7 +37,7 @@ const CertificationDetails = ({
         style={styles.input}
       />
       {/* Add more input fields for other certification details */}
-      <Button title="Add Education" onPress={handleAddCertificate} />
+      <Button title="Add Certificates" onPress={handleAddCertificate} />
       <View style={styles.buttonContainer}>
         <Button title="Back" onPress={onBack} />
         <Button title="Next" onPress={handleNext} />
