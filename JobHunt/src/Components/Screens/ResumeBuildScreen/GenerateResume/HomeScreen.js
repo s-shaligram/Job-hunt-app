@@ -9,7 +9,7 @@ import CertificationDetails from "./CertificationDetails";
 import { useStateContext } from "../../../../context/StateContext";
 import { auth, db } from "../../../Database/dbConfig";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const { personalDetails, setPersonalDetails } = useStateContext();
   const [step, setStep] = useState(0);
   //const [personalDetails, setPersonalDetails] = useState([]);

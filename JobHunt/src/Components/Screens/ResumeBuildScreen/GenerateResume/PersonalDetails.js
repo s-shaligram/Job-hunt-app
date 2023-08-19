@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { useStateContext } from "../../../../context/StateContext";
 
 const PersonalDetails = ({ onNext, onBack, updatePersonalDetails }) => {
+  const [resumeName, setResumeName] = useState("");
   const [name, setName] = useState("");
   const { authenticatedUser } = useStateContext();
   // Initialize email with authenticated user's email if available, otherwise use an empty string
@@ -10,13 +11,20 @@ const PersonalDetails = ({ onNext, onBack, updatePersonalDetails }) => {
   const [email, setEmail] = useState(initialEmail);
 
   const handleNext = () => {
-    const newPersonalData = { name, email }; // Create an object with collected data
+    const newPersonalData = { resumeName, name, email }; // Create an object with collected data
     updatePersonalDetails(newPersonalData); // Update parent component's state
     onNext(); // Move to the next step
     console.log("new PD:", newPersonalData);
   };
   return (
     <View>
+      <Text style={styles.heading}>Resume Name</Text>
+      <TextInput
+        placeholder="Add a name for your resume"
+        value={resumeName}
+        onChangeText={setResumeName}
+        style={styles.input}
+      />
       <Text style={styles.heading}>Personal Details</Text>
       <TextInput
         placeholder="Name"

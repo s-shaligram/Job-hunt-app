@@ -12,7 +12,7 @@ const ResumePreview = ({
   console.log("personalDetail:", personalDetails);
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.heading}>Resume Preview</Text>
+      <Text style={styles.heading}>{personalDetails.resumeName}</Text>
       <View style={styles.section}>
         <Text style={styles.sectionHeading}>Personal Details</Text>
         <Text style={styles.detail}>Name: {personalDetails.name}</Text>
