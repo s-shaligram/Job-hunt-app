@@ -1,6 +1,7 @@
 import {initializeApp} from "firebase/app";
 import {getAuth} from "firebase/auth";
 import { getFirestore } from "firebase/firestore"; 
+import { getStorage, ref} from "firebase/storage";
 
 const firebaseConfig = {
     /// Initialize Firebase
@@ -17,4 +18,6 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp); // Initialize Firestore
-export { auth, db }; // Export the Firestore instance as well
+const storage = getStorage(firebaseApp); //initiate Storage for file upload
+//console.log("my db:",db)
+export { auth, db ,storage,ref}; // Export the Firestore instance as well 
