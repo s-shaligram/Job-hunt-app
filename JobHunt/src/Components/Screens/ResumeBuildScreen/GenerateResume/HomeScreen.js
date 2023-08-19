@@ -6,27 +6,103 @@ import ExperienceDetails from "./ExperienceDetails";
 import ProjectDetails from "./ProjectDetails";
 import EducationDetails from "./EducationDetails";
 import CertificationDetails from "./CertificationDetails";
-import { generatePDF } from "./pdfGenerator";
-
+import generatePDF from "./pdfGenerator";
+import { useStateContext } from "../../../../context/StateContext";
+import {
+  uploadPDFToFirebase,
+  savePDFMetadataToFirestore,
+} from "./firebaseUtils";
 const HomeScreen = () => {
+  const { personalDetails, setPersonalDetails } = useStateContext();
   const [step, setStep] = useState(0);
-  const [personalDetails, setPersonalDetails] = useState({
-    name: "",
-    email: "",
-  });
+  //const [personalDetails, setPersonalDetails] = useState([]);
   const [experienceDetails, setExperienceDetails] = useState([]);
   const [projectDetails, setProjectDetails] = useState([]);
   const [educationDetails, setEducationDetails] = useState([]);
   const [certificationDetails, setCertificationDetails] = useState([]);
 
+  // const handleGeneratePDF = async () => {
+  //   try {
+  //     const pdfBytes = await generatePDF({
+  //       personalDetails,
+  //       experienceDetails,
+  //       projectDetails,
+  //       educationDetails,
+  //       certificationDetails,
+  //     });
+
+  //     const pdfFileName = "resume"; // You can set a desired file name
+  //     const pdfDownloadURL = await uploadPDFToFirebase(pdfBytes, pdfFileName);
+
+  //     if (!pdfDownloadURL) {
+  //       // Handle failure to upload PDF
+  //       console.error("Failed to upload PDF to Firebase Storage");
+  //       return;
+  //     }
+
+  //     const pdfMetadata = {
+  //       personalDetails,
+  //       experienceDetails,
+  //       projectDetails,
+  //       educationDetails,
+  //       certificationDetails,
+  //       pdfDownloadURL,
+  //       createdAt: firestore.FieldValue.serverTimestamp(),
+  //     };
+
+  //     const success = await savePDFMetadataToFirestore(pdfMetadata);
+
+  //     if (success) {
+  //       // Handle successful PDF generation and metadata saving
+  //     } else {
+  //       // Handle failure to save metadata
+  //       console.error("Failed to save PDF metadata to Firestore");
+  //     }
+  //   } catch (error) {
+  //     // Handle any unexpected errors during the PDF generation process
+  //     console.error("Error generating and saving PDF:", error);
+  //   }
+  // };
   const handleGeneratePDF = async () => {
-    await generatePDF({
-      personalDetails,
-      experienceDetails,
-      projectDetails,
-      educationDetails,
-      certificationDetails,
-    });
+    try {
+      const pdfFilePath = await generatePDF({
+        personalDetails,
+        experienceDetails,
+        projectDetails,
+        educationDetails,
+        certificationDetails,
+      });
+
+      const pdfBytes = await RNFetchBlob.fs.readFile(pdfFilePath, "base64");
+
+      const pdfFileName = "resume.pdf"; // Set a desired file name
+      const pdfDownloadURL = await uploadPDFToFirebase(pdfBytes, pdfFileName);
+
+      if (!pdfDownloadURL) {
+        console.error("Failed to upload PDF to Firebase Storage");
+        return;
+      }
+
+      const pdfMetadata = {
+        personalDetails,
+        experienceDetails,
+        projectDetails,
+        educationDetails,
+        certificationDetails,
+        pdfDownloadURL,
+        createdAt: firestore.FieldValue.serverTimestamp(),
+      };
+
+      const success = await savePDFMetadataToFirestore(pdfMetadata);
+
+      if (success) {
+        // Handle successful PDF generation and metadata saving
+      } else {
+        console.error("Failed to save PDF metadata to Firestore");
+      }
+    } catch (error) {
+      console.error("Error generating and saving PDF:", error);
+    }
   };
 
   const handleNext = () => {
