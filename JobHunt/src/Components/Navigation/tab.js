@@ -47,7 +47,7 @@ const ReactNavigationBottomTabs = () => {
                     ),
                 }}
             />
-            {true ? (
+            {authenticatedUser.userType === "Recruiter" ? (
                 <Tab.Screen
                     name="Post Job"
                     component={PostJobsScreen}
