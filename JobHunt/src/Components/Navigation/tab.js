@@ -8,6 +8,7 @@ import Logo from "../Logo/header";
 import PostJobsScreen from "../Screens/PostJobsScreen";
 import {useStateContext} from "../../context/StateContext";
 import ApplicantsScreen from "../Screens/ApplicantsScreen";
+import ApplicationList from "../Screens/ApplicationList";
 
 const Tab = createBottomTabNavigator();
 
@@ -59,8 +60,8 @@ const ReactNavigationBottomTabs = () => {
                 />
             ) : (
                 <Tab.Screen
-                    name="Profile"
-                    component={ProfileScreen}
+                    name="Applications"
+                    component={ApplicationList}
                     options={{
                         headerShown: false,
                         tabBarIcon: ({color, size}) => (
