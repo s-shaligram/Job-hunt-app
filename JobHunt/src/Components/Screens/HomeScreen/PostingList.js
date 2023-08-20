@@ -33,12 +33,9 @@ export const PostingList = ({ navigation }) => {
   }, []);
 
   const deleteJob = async (id) => {
-    console.log("Delet:", id);
     try {
       const docRef = doc(db, "jobPostings", id);
-      console.log(docRef.id);
       const result = await deleteDoc(docRef);
-      console.log("result:", result);
       setPostings(postings.filter((post) => post.id != id));
       return true;
     } catch (e) {

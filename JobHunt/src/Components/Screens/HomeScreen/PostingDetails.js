@@ -6,6 +6,7 @@ import {useStateContext} from "../../../context/StateContext";
 
 export const PostingDetails = ({ route, navigation }) => {
   const { details } = route.params;
+  const { getJobPostings, authenticatedUser } = useStateContext();
 
   const navigateToApplyScreen = () => {
     navigation.navigate("ApplyScreen",{details: details}); // Replace "ApplyScreen" with the actual screen name for the apply screen
@@ -13,11 +14,11 @@ export const PostingDetails = ({ route, navigation }) => {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
+      <View>
         <Card containerStyle={{ marginBottom: 15 }}>
-          <View style={{ marginBottom: 20 }}>
+          {authenticatedUser.userType !== "Recruiter" && <View style={{ marginBottom: 20 }}>
             <Button onPress={navigateToApplyScreen} title={"Apply"} />
-          </View>
+          </View>}
           <Text style={{ fontSize: 25, fontWeight: "bold" }}>
             {details?.jobTitle}
           </Text>
@@ -34,9 +35,10 @@ export const PostingDetails = ({ route, navigation }) => {
             Contact Details:
           </Text>
           <Text>{details?.contactDetails}</Text>
-          <View style={{ marginTop: 20 }}>
+          <Text>{details?.postedBy}</Text>
+          {authenticatedUser.userType !== "Recruiter" && <View style={{ marginTop: 20 }}>
             <Button onPress={navigateToApplyScreen} title={"Apply"} />
-          </View>
+          </View>}
         </Card>
       </View>
     </ScrollView>
