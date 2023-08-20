@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
       alignItems:'center'
     },
     sign_up_url:{
-      color:'blue'
+      color:'blue',
+      marginTop: 10,
     },
     logo:{
       height:500,

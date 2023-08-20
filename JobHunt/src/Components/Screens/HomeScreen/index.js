@@ -2,7 +2,7 @@ import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 import {PostingList} from "./PostingList";
 import {PostingDetails} from "./PostingDetails";
-import ApplyScreen from "./ApplyScreen"; 
+import ApplyScreen from "./ApplyScreen";
 
 const Stack = createStackNavigator();
 const HomeScreen = () => {

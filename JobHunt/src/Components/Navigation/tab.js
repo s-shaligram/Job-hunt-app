@@ -49,7 +49,7 @@ const ReactNavigationBottomTabs = () => {
             />
             {authenticatedUser.userType === "Recruiter" ? (
                 <Tab.Screen
-                    name="PostJobsScreen"
+                    name="Post Job"
                     component={PostJobsScreen}
                     options={{
                         tabBarIcon: ({color, size}) => (
