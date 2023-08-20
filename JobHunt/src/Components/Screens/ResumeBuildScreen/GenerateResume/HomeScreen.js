@@ -12,7 +12,6 @@ import { collection, addDoc, Timestamp } from "firebase/firestore";
 const HomeScreen = ({ navigation }) => {
   const { personalDetails, setPersonalDetails } = useStateContext();
   const [step, setStep] = useState(0);
-  //const [personalDetails, setPersonalDetails] = useState([]);
   const [experienceDetails, setExperienceDetails] = useState([]);
   const [projectDetails, setProjectDetails] = useState([]);
   const [educationDetails, setEducationDetails] = useState([]);
@@ -32,7 +31,6 @@ const HomeScreen = ({ navigation }) => {
         postedDate: Timestamp.fromDate(new Date()),
       });
       console.log("Resume Data saved");
-      navigation.navigate('ResumeHome')
     } catch (error) {
       console.log("Error in submission", error);
     }
@@ -89,33 +87,33 @@ const HomeScreen = ({ navigation }) => {
           />
         );
       default:
-        return null;
+        return (
+            <ScrollView>
+              <ResumePreview
+                  personalDetails={personalDetails}
+                  experienceDetails={experienceDetails}
+                  projectDetails={projectDetails}
+                  educationDetails={educationDetails}
+                  certificationDetails={certificationDetails}
+              />
+              <Button title="Save Resume" onPress={saveResume}/>
+            </ScrollView>
+        );
     }
   };
 
   return (
-    <View style={styles.container}>
-      {renderStep()}
-      {step === 5 && (
-        <ScrollView>
-          <ResumePreview
-            personalDetails={personalDetails}
-            experienceDetails={experienceDetails}
-            projectDetails={projectDetails}
-            educationDetails={educationDetails}
-            certificationDetails={certificationDetails}
-          />
-          <Button title="Save Resume" onPress={saveResume} />
-        </ScrollView>
-      )}
-    </View>
+      <View style={styles.container}>
+        {renderStep()}
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    margin: 10,
     padding: 10,
+    backgroundColor: 'white'
   },
 });
 
