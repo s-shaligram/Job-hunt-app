@@ -4,9 +4,12 @@ import { Picker } from "@react-native-picker/picker";
 import styles from "./styles";
 import { auth, db, } from "../../Database/dbConfig"
 import { collection, addDoc, doc, updateDoc, Timestamp } from "firebase/firestore";
-
+import CustomDrawer from "../../Navigation/CustomDrawer";
+import {createDrawerNavigator} from "@react-navigation/drawer";
 
 const PostJobsScreen = () => {
+  const Drawer = createDrawerNavigator();
+
   const [jobTitle, setJobTitle] = useState('');
   const [jobTitleError, setJobTitleError] = useState(null);
   const [field, setField] = useState('');
@@ -229,119 +232,128 @@ const PostJobsScreen = () => {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {(isSaving) && <ActivityIndicator size="large" color="#000ff"></ActivityIndicator>}
-      <Text style={styles.label}>Job Title</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Job Title"
-        value={jobTitle}
-        onChangeText={(jobTitle) => {
-          setAllowValidation(true)
-          setJobTitle(jobTitle);
-          validateJobTitle()
-        }
-        }
-      />
-      {jobTitleError && <Text style={styles.errorText}>{jobTitleError}</Text>}
-      <Text style={styles.label}>Field</Text>
-      <Picker
-        style={styles.input}
-        selectedValue={field}
-        onValueChange={(itemValue) => {
-          setAllowValidation(true)
-          setField(itemValue)
-          validateField()
-        }
-        }
+      <Drawer.Navigator
+          drawerContent={(props) => <CustomDrawer {...props} />}
       >
-        <Picker.Item label="Select Field" value="" />
-        <Picker.Item label="IT" value="IT" />
-        <Picker.Item label="Finance" value="Finance" />
-        <Picker.Item label="HR" value="HR" />
-        <Picker.Item label="Construction" value="Construction" />
-      </Picker>
-      {fieldError && <Text style={styles.errorText}>{fieldError}</Text>}
-      <Text style={styles.label}>Company Name</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Company Name"
-        value={companyName}
-        onChangeText={(companyName) => {
-          setAllowValidation(true)
-          setCompanyName(companyName)
-        }}
-      />
-      <Text style={styles.errorText}>{companyNameError}</Text>
-      <Text style={styles.label}>Job Type</Text>
-      <Picker
-        style={[styles.input, { marginLeft: -2 }]}
-        selectedValue={jobType}
-        onValueChange={(itemValue) => {
-          setAllowValidation(true)
-          setJobType(itemValue)
-          validateJobType()
-        }}
+        <Drawer.Screen name="Profile">
+          {() => (
+              <ScrollView contentContainerStyle={styles.container}>
+                {(isSaving) && <ActivityIndicator size="large" color="#000ff"></ActivityIndicator>}
+                <Text style={styles.label}>Job Title</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter Job Title"
+                    value={jobTitle}
+                    onChangeText={(jobTitle) => {
+                      setAllowValidation(true)
+                      setJobTitle(jobTitle);
+                      validateJobTitle()
+                    }
+                    }
+                />
+                {jobTitleError && <Text style={styles.errorText}>{jobTitleError}</Text>}
+                <Text style={styles.label}>Field</Text>
+                <Picker
+                    style={styles.input}
+                    selectedValue={field}
+                    onValueChange={(itemValue) => {
+                      setAllowValidation(true)
+                      setField(itemValue)
+                      validateField()
+                    }
+                    }
+                >
+                  <Picker.Item label="Select Field" value="" />
+                  <Picker.Item label="IT" value="IT" />
+                  <Picker.Item label="Finance" value="Finance" />
+                  <Picker.Item label="HR" value="HR" />
+                  <Picker.Item label="Construction" value="Construction" />
+                </Picker>
+                {fieldError && <Text style={styles.errorText}>{fieldError}</Text>}
+                <Text style={styles.label}>Company Name</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter Company Name"
+                    value={companyName}
+                    onChangeText={(companyName) => {
+                      setAllowValidation(true)
+                      setCompanyName(companyName)
+                    }}
+                />
+                <Text style={styles.errorText}>{companyNameError}</Text>
+                <Text style={styles.label}>Job Type</Text>
+                <Picker
+                    style={[styles.input, { marginLeft: -2 }]}
+                    selectedValue={jobType}
+                    onValueChange={(itemValue) => {
+                      setAllowValidation(true)
+                      setJobType(itemValue)
+                      validateJobType()
+                    }}
 
-      >
-        <Picker.Item label="Select Job Type" value="" />
-        <Picker.Item label="Contract" value="Contract" />
-        <Picker.Item label="Part-time" value="Part-time" />
-        <Picker.Item label="Full-time" value="Full-time" />
-        <Picker.Item label="Seasonal" value="Seasonal" />
-      </Picker>
-      {jobTypeError&&<Text style={styles.errorText}>{jobTypeError}</Text>}
-      <Text style={styles.label}>Location</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Location"
-        value={location}
-        onChangeText={(location) => {
-          setAllowValidation(true)
-          setLocation(location)
-          validateLocation()
-        }}
-      />
-      {locationError && <Text style={styles.errorText}>{locationError}</Text>}
-      <Text style={styles.label}>Job Description</Text>
-      <TextInput
-        style={[styles.input, styles.textArea]}
-        placeholder="Enter Job Description"
-        multiline
-        numberOfLines={4}
-        value={jobDescription}
-        onChangeText={(jobDescription) => {
-          setAllowValidation(true)
-          setJobDescription(jobDescription)
-          validateJobDescription()
-        }}
-      />
-      {jobDescriptionError && <Text style={styles.errorText}>{jobDescriptionError}</Text>}
-      <Text style={styles.label}>Salary (CAD)</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Salary"
-        keyboardType="numeric"
-        value={salary}
-        onChangeText={(salary) => {
-          setAllowValidation(true)
-          setSalary(salary)
-          validateSalary()
-        }}
-      />
-      {salaryError && <Text style={styles.errorText}>{salaryError}</Text>}
-      <View style={styles.button_container}>
-        <TouchableOpacity style={[styles.button]}
-          onPress={handleSubmit}
-          disabled={isSaving}>
-          <Text style={styles.buttonText}>Post Job</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, { backgroundColor: '#FF0000' }]} onPress={() => handleCancel()}>
-          <Text style={styles.buttonText}>Cancel</Text>
-        </TouchableOpacity>
-      </View>
+                >
+                  <Picker.Item label="Select Job Type" value="" />
+                  <Picker.Item label="Contract" value="Contract" />
+                  <Picker.Item label="Part-time" value="Part-time" />
+                  <Picker.Item label="Full-time" value="Full-time" />
+                  <Picker.Item label="Seasonal" value="Seasonal" />
+                </Picker>
+                {jobTypeError&&<Text style={styles.errorText}>{jobTypeError}</Text>}
+                <Text style={styles.label}>Location</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter Location"
+                    value={location}
+                    onChangeText={(location) => {
+                      setAllowValidation(true)
+                      setLocation(location)
+                      validateLocation()
+                    }}
+                />
+                {locationError && <Text style={styles.errorText}>{locationError}</Text>}
+                <Text style={styles.label}>Job Description</Text>
+                <TextInput
+                    style={[styles.input, styles.textArea]}
+                    placeholder="Enter Job Description"
+                    multiline
+                    numberOfLines={4}
+                    value={jobDescription}
+                    onChangeText={(jobDescription) => {
+                      setAllowValidation(true)
+                      setJobDescription(jobDescription)
+                      validateJobDescription()
+                    }}
+                />
+                {jobDescriptionError && <Text style={styles.errorText}>{jobDescriptionError}</Text>}
+                <Text style={styles.label}>Salary (CAD)</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter Salary"
+                    keyboardType="numeric"
+                    value={salary}
+                    onChangeText={(salary) => {
+                      setAllowValidation(true)
+                      setSalary(salary)
+                      validateSalary()
+                    }}
+                />
+                {salaryError && <Text style={styles.errorText}>{salaryError}</Text>}
+                <View style={styles.button_container}>
+                  <TouchableOpacity style={[styles.button]}
+                                    onPress={handleSubmit}
+                                    disabled={isSaving}>
+                    <Text style={styles.buttonText}>Post Job</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={[styles.button, { backgroundColor: '#FF0000' }]} onPress={() => handleCancel()}>
+                    <Text style={styles.buttonText}>Cancel</Text>
+                  </TouchableOpacity>
+                </View>
 
-    </ScrollView>
+              </ScrollView>
+          )}
+        </Drawer.Screen>
+      </Drawer.Navigator>
+
   );
 
 
