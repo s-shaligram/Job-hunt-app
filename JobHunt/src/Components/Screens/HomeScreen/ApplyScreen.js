@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { auth, db } from "../../Database/dbConfig";
 import { collection, getDocs, setDoc, doc, query, where, deleteDoc, addDoc, Timestamp } from "firebase/firestore";
@@ -44,8 +44,10 @@ const ApplyScreen = ({ route, navigation }) => {
         });
         console.log('Applied to job successfully.');
         navigation.navigate("Jobs List");
+        Alert.alert("Success", "You have successfully applied for the job.");
       } catch (error) {
-        console.log("Error in submission", error)
+        console.log("Error in submission", error);
+        Alert.alert("Error", "An error occurred while submitting your application.");
       }
   };
 
