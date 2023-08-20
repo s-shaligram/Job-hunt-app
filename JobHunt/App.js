@@ -11,11 +11,9 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
 
     return (
-        // <View onLayout={onLayoutRootView}>
         <StateProvider>
             <AppNavigator />
         </StateProvider>
-        // </View>
     );
 }
 function AppNavigator() {
@@ -29,7 +27,6 @@ useEffect(() => {
       } catch (e) {
         console.warn(e);
       } finally {
-        // Tell the application to render
         setAppIsReady(true);
       }
     }
@@ -53,7 +50,7 @@ useEffect(() => {
 
     return (
         
-      <View style={{flex:1}} onLayout={onLayoutRootView}>
+      <View style= {{flex:1}} onLayout={onLayoutRootView}>
         <NavigationContainer>
             {authenticatedUser ? <ReactNavigationBottomTabs /> : <LoginScreen />}
         </NavigationContainer>

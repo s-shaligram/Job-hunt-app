@@ -9,9 +9,9 @@ const PersonalDetails = ({ onNext, onBack, updatePersonalDetails }) => {
   // Initialize email with authenticated user's email if available, otherwise use an empty string
   const initialEmail = authenticatedUser ? authenticatedUser.email : "";
   const [email, setEmail] = useState(initialEmail);
-
+  const [phone, setPhone] = useState("");
   const handleNext = () => {
-    const newPersonalData = { resumeName, name, email }; // Create an object with collected data
+    const newPersonalData = { resumeName, name, email, phone }; // Create an object with collected data
     updatePersonalDetails(newPersonalData); // Update parent component's state
     onNext(); // Move to the next step
     console.log("new PD:", newPersonalData);
@@ -36,6 +36,12 @@ const PersonalDetails = ({ onNext, onBack, updatePersonalDetails }) => {
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Phone"
+        value={phone}
+        onChangeText={setPhone}
         style={styles.input}
       />
       {/* Add more input fields for other personal details */}

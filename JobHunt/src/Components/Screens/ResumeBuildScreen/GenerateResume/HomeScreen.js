@@ -8,11 +8,10 @@ import EducationDetails from "./EducationDetails";
 import CertificationDetails from "./CertificationDetails";
 import { useStateContext } from "../../../../context/StateContext";
 import { auth, db } from "../../../Database/dbConfig";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import {collection, addDoc, Timestamp, doc, updateDoc} from "firebase/firestore";
 const HomeScreen = ({ navigation }) => {
   const { personalDetails, setPersonalDetails } = useStateContext();
   const [step, setStep] = useState(0);
-  //const [personalDetails, setPersonalDetails] = useState([]);
   const [experienceDetails, setExperienceDetails] = useState([]);
   const [projectDetails, setProjectDetails] = useState([]);
   const [educationDetails, setEducationDetails] = useState([]);
@@ -31,6 +30,20 @@ const HomeScreen = ({ navigation }) => {
         postedBy: userEmail, // Include the current user's email as postedBy
         postedDate: Timestamp.fromDate(new Date()),
       });
+
+      const docUpdateRef = doc(db, "Resumes", docRef.id);
+
+      await updateDoc(docUpdateRef, {
+        id: docRef.id,
+        personalDetails: personalDetails,
+        experienceDetails: experienceDetails,
+        projectDetails: projectDetails,
+        educationDetails: educationDetails,
+        certificationDetails: certificationDetails,
+        postedBy: userEmail, // Include the current user's email as postedBy
+        postedDate: Timestamp.fromDate(new Date()),
+      });
+
       console.log("Resume Data saved");
     } catch (error) {
       console.log("Error in submission", error);
@@ -88,33 +101,33 @@ const HomeScreen = ({ navigation }) => {
           />
         );
       default:
-        return null;
+        return (
+            <ScrollView>
+              <ResumePreview
+                  personalDetails={personalDetails}
+                  experienceDetails={experienceDetails}
+                  projectDetails={projectDetails}
+                  educationDetails={educationDetails}
+                  certificationDetails={certificationDetails}
+              />
+              <Button title="Save Resume" onPress={saveResume}/>
+            </ScrollView>
+        );
     }
   };
 
   return (
-    <View style={styles.container}>
-      {renderStep()}
-      {step === 5 && (
-        <>
-          <ResumePreview
-            personalDetails={personalDetails}
-            experienceDetails={experienceDetails}
-            projectDetails={projectDetails}
-            educationDetails={educationDetails}
-            certificationDetails={certificationDetails}
-          />
-          <Button title="Save Resume" onPress={saveResume} />
-        </>
-      )}
-    </View>
+      <View style={styles.container}>
+        {renderStep()}
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 20,
+    margin: 10,
+    padding: 10,
+    backgroundColor: 'white'
   },
 });
 
