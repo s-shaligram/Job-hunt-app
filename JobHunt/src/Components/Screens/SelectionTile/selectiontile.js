@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 const SelectionTile = (props) => {
-  const { name, routeTo, navigation,resume } = props;
+  const { name, routeTo, navigation, resume } = props;
   return (
     <TouchableOpacity
       style={[
