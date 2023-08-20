@@ -68,7 +68,12 @@ export const StateProvider = (props) => {
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
         const jobPostingsDocs = querySnapshot.docs; // Get the documents
-        const jobPostingsData = jobPostingsDocs.map((doc) => doc.data()); // Map data from each document
+        const jobPostingsData = jobPostingsDocs.map((doc) => {
+
+          const data = doc.data();
+          const job_id = doc.id; // Get the doc.id
+          return { ...data, job_id }; 
+        }); // Map data from each document
         return jobPostingsData;
       } else {
         console.log("No postings found.");
