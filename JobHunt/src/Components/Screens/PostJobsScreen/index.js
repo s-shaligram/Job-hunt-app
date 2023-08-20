@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, ActivityIndicator 
 import { Picker } from "@react-native-picker/picker";
 import styles from "./styles";
 import { auth, db, } from "../../Database/dbConfig"
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc, Timestamp } from "firebase/firestore";
 
 
 const PostJobsScreen = () => {
@@ -71,6 +71,22 @@ const PostJobsScreen = () => {
           postedBy: userEmail, // Include the current user's email as postedBy
           postedDate: Timestamp.fromDate(new Date())
         });
+
+        const docUpdateRef = doc(db, "jobPostings", docRef.id);
+
+        await updateDoc(docUpdateRef, {
+          id: docRef.id,
+          jobTitle: jobTitle,
+          field: field,
+          companyName: companyName,
+          jobType: jobType,
+          location: location,
+          jobDescription: jobDescription,
+          salary: salary,
+          postedBy: userEmail, // Include the current user's email as postedBy
+          postedDate: Timestamp.fromDate(new Date())
+        });
+
         console.log('Job posting submitted successfully.');
         setIsSaving(false)
       } catch (error) {
