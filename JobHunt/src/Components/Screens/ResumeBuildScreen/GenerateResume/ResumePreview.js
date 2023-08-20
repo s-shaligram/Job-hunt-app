@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { useStateContext } from "../../../../context/StateContext";
 const ResumePreview = ({
   personalDetails,
   experienceDetails,
@@ -8,11 +7,10 @@ const ResumePreview = ({
   educationDetails,
   certificationDetails,
 }) => {
-  //const { personalDetails } = useStateContext();
-  console.log("personalDetail:", personalDetails);
   return (
-    <View contentContainerStyle={styles.container}>
-      <Text style={styles.heading}>{personalDetails.resumeName}</Text>
+      <>
+      {personalDetails && <View contentContainerStyle={styles.container}>
+      <Text style={styles.heading}>{personalDetails?.resumeName}</Text>
       <View style={styles.section}>
         <Text style={styles.sectionHeading}>Personal Details</Text>
         <Text style={styles.detail}>Name: {personalDetails.name}</Text>
@@ -63,7 +61,8 @@ const ResumePreview = ({
           </View>
         ))}
       </View>
-    </View>
+    </View>}
+      </>
   );
 };
 
