@@ -7,7 +7,7 @@ export const PostingDetails = ({ route, navigation }) => {
   const { details } = route.params;
 
   const navigateToApplyScreen = () => {
-    navigation.navigate("ApplyScreen"); // Replace "ApplyScreen" with the actual screen name for the apply screen
+    navigation.navigate("ApplyScreen",{details: details}); // Replace "ApplyScreen" with the actual screen name for the apply screen
   };
 
   return (
