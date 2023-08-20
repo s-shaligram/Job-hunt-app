@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import LoginScreen from "./src/Components/Screens/loginScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import ReactNavigationBottomTabs from "./src/Components/Navigation/tab";
+import { StateProvider, useStateContext } from "./src/context/StateContext";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>App development for job hunt!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <StateProvider>
+      <AppNavigator />
+    </StateProvider>
   );
 }
+function AppNavigator() {
+  const { authenticatedUser, loading } = useStateContext();
+  console.log("AULOGIN", authenticatedUser, loading);
+  if (loading) {
+    return null;
+  }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  return (
+    <NavigationContainer>
+      {authenticatedUser ? <ReactNavigationBottomTabs /> : <LoginScreen />}
+    </NavigationContainer>
+  );
+}
