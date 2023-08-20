@@ -7,7 +7,7 @@ function ResumeHome({ navigation }) {
     <ScrollView style={{ backgroundColor: "white" }}>
       <SelectionTile
         name={"📜 My Resume"}
-        routeTo={"ViewMyResume"}
+        routeTo={"ResumeList"}
         navigation={navigation}
       />
       <SelectionTile

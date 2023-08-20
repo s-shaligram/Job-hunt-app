@@ -2,12 +2,20 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 
 const EducationDetails = ({ onNext, onBack, updateEducationDetails }) => {
+  const [Educations, setEducation] = useState([]);
   const [school, setSchool] = useState("");
   const [degree, setDegree] = useState("");
   // Add more state variables for other education details
-  const handleNext = () => {
+
+  const handleAddEducation = () => {
     const newEducationDetail = { school, degree };
-    updateEducationDetails(newEducationDetail);
+    setEducation([...Educations, newEducationDetail]);
+    setSchool("");
+    setDegree("");
+  };
+
+  const handleNext = () => {
+    updateEducationDetails(Educations);
     onNext();
   };
   return (
@@ -25,11 +33,20 @@ const EducationDetails = ({ onNext, onBack, updateEducationDetails }) => {
         onChangeText={setDegree}
         style={styles.input}
       />
+      <Button title="Add Education" onPress={handleAddEducation} />
       {/* Add more input fields for other education details */}
       <View style={styles.buttonContainer}>
         <Button title="Back" onPress={onBack} />
         <Button title="Next" onPress={handleNext} />
       </View>
+      {Educations.map((education, index) => (
+        <View key={index} style={styles.educationItem}>
+          <Text style={{ ...styles.educationText, fontWeight: "bold" }}>
+            {education.school}
+          </Text>
+          <Text style={styles.educationText}>{education.degree}</Text>
+        </View>
+      ))}
     </View>
   );
 };
@@ -62,6 +79,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginStart: 130,
     marginEnd: 130,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  educationItem: {
+    marginTop: 10,
+    marginBottom: 10,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    backgroundColor: "#DCDCDC",
+    padding: 10,
+    borderRadius: 5,
+  },
+  educationText: {
+    fontSize: 20,
   },
 });
 
