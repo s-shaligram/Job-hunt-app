@@ -2,6 +2,7 @@ import { Button, ScrollView, Text, View } from "react-native";
 import styles from "./styles";
 import { Card } from "react-native-elements";
 import React from "react";
+import {useStateContext} from "../../../context/StateContext";
 
 export const PostingDetails = ({ route, navigation }) => {
   const { details } = route.params;

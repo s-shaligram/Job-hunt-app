@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 import {useStateContext} from "../../../context/StateContext";
 
 export const PostingList = ({navigation}) => {
-    const {getJobPostings} = useStateContext();
+    const {getJobPostings, authenticatedUser} = useStateContext();
     const [postings, setPostings] = useState([])
     const screenWidth = Dimensions.get('window').width;
 
@@ -14,7 +14,11 @@ export const PostingList = ({navigation}) => {
         setPostings([]);
         getJobPostings().then(result => {
             if (!ignore) {
-                setPostings(result);
+                if(authenticatedUser.userType === 'Recruiter') {
+                    setPostings(result.filter(data => data.postedBy === authenticatedUser.email));
+                } else {
+                    setPostings(result);
+                }
             }
         });
         return () => {

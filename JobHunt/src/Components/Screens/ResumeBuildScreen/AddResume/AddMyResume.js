@@ -47,7 +47,7 @@ const AddMyResume = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <>
       {/* <Picker
         selectedValue={selectedOption}
         onValueChange={(itemValue) => setSelectedOption(itemValue)}
@@ -77,7 +77,7 @@ const AddMyResume = ({ navigation }) => {
         <Text>Open Resume</Text>
       </TouchableOpacity> */}
       <GenerateScreen />
-    </View>
+      </>
   );
 };
 
