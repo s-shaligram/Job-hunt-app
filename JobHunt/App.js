@@ -53,7 +53,7 @@ useEffect(() => {
 
     return (
         
-      <View onLayout={onLayoutRootView}>
+      <View style={{flex:1}} onLayout={onLayoutRootView}>
         <NavigationContainer>
             {authenticatedUser ? <ReactNavigationBottomTabs /> : <LoginScreen />}
         </NavigationContainer>
