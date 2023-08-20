@@ -8,7 +8,7 @@ import EducationDetails from "./EducationDetails";
 import CertificationDetails from "./CertificationDetails";
 import { useStateContext } from "../../../../context/StateContext";
 import { auth, db } from "../../../Database/dbConfig";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import {collection, addDoc, Timestamp, doc, updateDoc} from "firebase/firestore";
 const HomeScreen = ({ navigation }) => {
   const { personalDetails, setPersonalDetails } = useStateContext();
   const [step, setStep] = useState(0);
@@ -30,6 +30,20 @@ const HomeScreen = ({ navigation }) => {
         postedBy: userEmail, // Include the current user's email as postedBy
         postedDate: Timestamp.fromDate(new Date()),
       });
+
+      const docUpdateRef = doc(db, "Resumes", docRef.id);
+
+      await updateDoc(docUpdateRef, {
+        id: docRef.id,
+        personalDetails: personalDetails,
+        experienceDetails: experienceDetails,
+        projectDetails: projectDetails,
+        educationDetails: educationDetails,
+        certificationDetails: certificationDetails,
+        postedBy: userEmail, // Include the current user's email as postedBy
+        postedDate: Timestamp.fromDate(new Date()),
+      });
+
       console.log("Resume Data saved");
     } catch (error) {
       console.log("Error in submission", error);
